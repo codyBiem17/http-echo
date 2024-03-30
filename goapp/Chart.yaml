@@ -1,5 +1,5 @@
 apiVersion: v2
-name: goapp
+name: goapp-chart
 description: A Helm chart for my http-echo project built with Go
 icon: https://go.dev/blog/go-brand/Go-Logo/PNG/Go-Logo_Blue.png
 source:

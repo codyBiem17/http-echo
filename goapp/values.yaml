@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: iswprojacr.azurecr.io/http-echo
+  repository: 851725202131.dkr.ecr.us-west-2.amazonaws.com/goapp-chart
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1"

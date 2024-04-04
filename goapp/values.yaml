@@ -5,12 +5,13 @@
 replicaCount: 1
 
 image:
-  repository: 851725202131.dkr.ecr.us-west-2.amazonaws.com/goapp-chart
+  name: goapp-image
+  repository: maryambee/helm-goapp-isw
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1"
 
 service:
-  type: LoadBalancer
+  type: NodePort
   port: 80
   containerPort: 8080

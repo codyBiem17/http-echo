@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}
+  name: {{ .Chart.Name }}-deploy
   labels:
-    goapp-isw
+    app: goapp-isw
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,11 +14,11 @@ spec:
       labels:
         app: goapp-isw
     spec:
-      containers:
-        - name: {{ .Values.image.name }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.containerPort }}
-              protocol: TCP
+     containers:
+       - name: {{ .Values.image.name }}
+         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+         imagePullPolicy: {{ .Values.image.pullPolicy }}
+         ports:
+           - name: http
+             containerPort: {{ .Values.service.containerPort }}
+

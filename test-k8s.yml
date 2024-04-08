@@ -48,9 +48,9 @@ spec:
   selector:
     app: nginx
   ports:
-          #- protocol: TCP
-    - port: 80
-      targetPort: 80
+    - protocol: TCP
+      port: 80
+      targetPort: 5678
   type: NodePort
 
 ---
@@ -74,4 +74,4 @@ spec:
       - name: nginx
         image: maryambee/helm-goapp-isw:v1
         ports:
-        - containerPort: 80
+        - containerPort: 5678

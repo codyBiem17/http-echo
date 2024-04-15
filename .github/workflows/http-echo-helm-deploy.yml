@@ -38,10 +38,10 @@ jobs:
       - name: Install Helm chart
         run: |
               #helm version command to check iif helm is installed otherwise install it
-             curl -fsSL -o helm-v3.14.2-linux-amd64.tar.gz https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz
-             tar -zxvf helm-v3.14.2-linux-amd64.tar.gz
-             sudo mv linux-amd64 /usr/local/bin
-             helm version  # Verify Helm installation 
+          curl -fsSL -o helm-v3.14.2-linux-amd64.tar.gz https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz
+          tar -xvf helm-v3.14.2-linux-amd64.tar.gz
+          sudo mv linux-amd64 /usr/local/bin
+          helm version  # Verify Helm installation 
 
       - name: Deploy Helm chart to K8S to create a release
         run: helm upgrade --install http-echo-goapp-release ./http-echo-helm

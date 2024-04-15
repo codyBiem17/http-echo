@@ -1,4 +1,4 @@
-name: Pipeline to Deploy Go App to K8S cluster created by ${{ github.actor }}
+name: Pipeline to Deploy Go App to K8S cluster
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    run-name: Build and Deploy app to K8S created by ${{ github.actor }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code github repo

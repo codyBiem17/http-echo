@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+     
     steps:
       - name: Checkout code github repo
         uses: actions/checkout@v3
@@ -25,7 +26,8 @@ jobs:
         run: |
           docker tag http-echo:local ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
-    run-name: Pipeline to Build and Deploy app to K8S created by ${{ github.actor }}
+    
+    run-name: "Pipeline to Build and Deploy app to K8S created by ${{ github.actor }}"
 
           # - name: Install and start Minikube cluster
           #   run: |

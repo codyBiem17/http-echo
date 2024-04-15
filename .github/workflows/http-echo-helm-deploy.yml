@@ -1,4 +1,4 @@
-name: Pipeline to Deploy Go App to K8S cluster created by ${{github.actor}}
+name: Pipeline to Deploy Go App to K8S cluster created by ${{ github.actor }}
 
 on:
   push:

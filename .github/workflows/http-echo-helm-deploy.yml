@@ -4,20 +4,19 @@ on:
   push:
     branches:
       - coybiem-feature-branch
- 
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code repo
-        uses: actions/checkout@v2
-
-      - name: Docker login
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin "${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw"
+      - name: Checkout code github repo
+        uses: actions/checkout@v3
 
       - name: Set up docker to build image
-        uses: docker-setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v1
+
+      - name: Docker login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin docker.io
 
       - name: Build a docker image using a Makefile
         run: make docker
@@ -27,18 +26,18 @@ jobs:
           docker tag http-echo:local ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
           docker push ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
 
-      - name: Install and start Minikube cluster
-        run: |
-          curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-          sudo install minikube-linux-amd64 /usr/local/bin/minikube
-          minikube start --driver=docker
+          # - name: Install and start Minikube cluster
+          #   run: |
+          #     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          #     sudo install minikube-linux-amd64 /usr/local/bin/minikube
+          #     minikube start --driver=docker
 
-      - name: Install Helm chart
-        run: |
-          #helm version command to check iif helm is installed otherwise install it
-          helm version || curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-          chmod 700 get_helm.sh
-          ./get_helm.sh
+          # - name: Install Helm chart
+          #   run: |
+          #     #helm version command to check iif helm is installed otherwise install it
+          #     helm version || curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          #     chmod 700 get_helm.sh
+          #     ./get_helm.sh
 
-      - name: Deploy Helm chart to K8S to create a release
-        run: helm upgrade --install http-echo-goapp-release ./goapp
+          # - name: Deploy Helm chart to K8S to create a release
+          #   run: helm upgrade --install http-echo-goapp-release ./goapp

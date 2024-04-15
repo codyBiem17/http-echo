@@ -3,7 +3,7 @@ name: Pipeline to Deploy Go App to K8S cluster created by ${{github.actor}}
 on:
   push:
     branches:
-      - coybiem-feature-branch
+      - codybiem-feature-branch
 
 jobs:
   build:

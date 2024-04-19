@@ -34,6 +34,7 @@ jobs:
               curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
               sudo install minikube-linux-amd64 /usr/local/bin/minikube
               minikube start --driver=docker
+              minikube status
 
       - name: Install Helm chart
         run: |
@@ -46,14 +47,24 @@ jobs:
       - name: Deploy Helm chart to K8S to create a release
         run: helm upgrade --install http-echo-goapp-release ./http-echo-helm
 
+      - name: Confirm deployment in K8S cluster succeeds
+        run: |
+          kubectl get pods
+          kubectl get deployments
+          kubectl get services
+
       - name: Get Minikube IP for accessing the application
         id: minikube_ip
         run: echo "::set-output name=minikube_ip::$(minikube ip)"
 
+      - name: Get NodePort
+        id: get_nodeport
+        run: |
+          nodeport=$(kubectl get svc http-echo -n default -o jsonpath="{.spec.ports[0].nodePort}")
+          echo "::set-output name=nodeport::$nodeport"  
+
       - name: Get service details with exposed port
         run: |
           kubectl get svc -n default
-          minikube_ip="${{ steps.minikube_ip.outputs.minikube_ip }}"
-          echo "Access the http-echo application at http://$minikube_ip:30195"
-          
-  
+          nodeport="${{ steps.get_nodeport.outputs.nodeport }}"
+          echo "Access your application at http://$minikube_ip:$nodeport

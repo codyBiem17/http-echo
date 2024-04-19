@@ -46,5 +46,14 @@ jobs:
       - name: Deploy Helm chart to K8S to create a release
         run: helm upgrade --install http-echo-goapp-release ./http-echo-helm
 
+      - name: Get Minikube IP for accessing the application
+        id: minikube_ip
+        run: echo "::set-output name=minikube_ip::$(minikube ip)"
+
       - name: Get service details with exposed port
-        run: kubectl get svc -n default
+        run: |
+          kubectl get svc -n default
+          minikube_ip="${{ steps.minikube_ip.outputs.minikube_ip }}"
+          echo "Access the http-echo application at http://$minikube_ip:30195"
+          
+  

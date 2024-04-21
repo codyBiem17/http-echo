@@ -2,9 +2,6 @@ apiVersion: v2
 name: goapp
 description: A Helm chart for my http-echo project built with Go
 icon: https://go.dev/blog/go-brand/Go-Logo/PNG/Go-Logo_Blue.png
-source:
-  - https://github.com/codyBiem17/http-echo
-
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives

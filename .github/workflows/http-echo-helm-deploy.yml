@@ -47,7 +47,7 @@ jobs:
       - name: Navigate to Helm chart directory
         run: |
           cd http-echo-helm
-          ls -l
+          ls
 
       - name: Deploy Helm chart to K8S to create a release
         run: helm upgrade --install http-echo-goapp-release .

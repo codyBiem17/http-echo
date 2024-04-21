@@ -64,6 +64,9 @@ jobs:
       - name: Check deployment info
         run: kubectl describe deployment goapp-deploy
 
+      - name: manually pull an image from dockerhub
+        run: docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
+
       - name: Get service url for accessing the application
       #  id: minikube_ip
         run: minikube service list #echo "::set-output name=minikube_ip::$(minikube ip)"

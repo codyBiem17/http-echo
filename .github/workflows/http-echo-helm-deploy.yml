@@ -44,19 +44,25 @@ jobs:
           sudo mv linux-amd64 /usr/local/bin
           helm version  # Verify Helm installation
 
-      - name: Navigate to Helm chart directory
+      - name: Deploy Helm chart to K8S to create a release
+        run: helm upgrade --install http-echo-goapp-release ./http-echo-helm
+
+      - name: Navigate to Helm chart directory and Check content of the deployment and services file
         run: |
           cd http-echo-helm
           ls
-
-      - name: Deploy Helm chart to K8S to create a release
-        run: helm upgrade --install http-echo-goapp-release ./http-echo-helm
+          cd templates
+          cat deployment.yaml
+          cat service.yaml
 
       - name: Confirm deployment in K8S cluster succeeds
         run: |
           kubectl get pods
           kubectl get deployments
           kubectl get services
+
+      - name: Check deployment info
+        run: kubectl describe deployment goapp-deploy
 
       - name: Get service url for accessing the application
       #  id: minikube_ip

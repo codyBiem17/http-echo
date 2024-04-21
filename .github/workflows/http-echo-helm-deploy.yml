@@ -50,7 +50,7 @@ jobs:
           ls
 
       - name: Deploy Helm chart to K8S to create a release
-        run: helm upgrade --install http-echo-goapp-release .
+        run: helm upgrade --install http-echo-goapp-release ./http-echo-helm
 
       - name: Confirm deployment in K8S cluster succeeds
         run: |

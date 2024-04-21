@@ -42,10 +42,15 @@ jobs:
           curl -fsSL -o helm-v3.14.2-linux-amd64.tar.gz https://get.helm.sh/helm-v3.14.2-linux-amd64.tar.gz
           tar -xvf helm-v3.14.2-linux-amd64.tar.gz
           sudo mv linux-amd64 /usr/local/bin
-          helm version  # Verify Helm installation 
+          helm version  # Verify Helm installation
+
+      - name: Navigate to Helm chart directory
+        run: |
+          cd http-echo-helm
+          ls -l
 
       - name: Deploy Helm chart to K8S to create a release
-        run: helm upgrade --install http-echo-goapp-release ./http-echo-helm
+        run: helm upgrade --install http-echo-goapp-release .
 
       - name: Confirm deployment in K8S cluster succeeds
         run: |
@@ -53,18 +58,18 @@ jobs:
           kubectl get deployments
           kubectl get services
 
-      - name: Get Minikube IP for accessing the application
-        id: minikube_ip
-        run: echo "::set-output name=minikube_ip::$(minikube ip)"
+      - name: Get service url for accessing the application
+      #  id: minikube_ip
+        run: minikube service list #echo "::set-output name=minikube_ip::$(minikube ip)"
 
-      - name: Get NodePort
-        id: get_nodeport
-        run: |
-          nodeport=$(kubectl get svc http-echo -n default -o jsonpath="{.spec.ports[0].nodePort}")
-          echo "::set-output name=nodeport::$nodeport"  
+      #- name: Get NodePort
+      #  id: get_nodeport
+      #  run: |
+      #    nodeport=$(kubectl get svc http-echo -n default -o jsonpath="{.spec.ports[0].nodePort}")
+      #    echo "::set-output name=nodeport::$nodeport"  
 
-      - name: Get service details with exposed port
-        run: |
-          kubectl get svc -n default
-          nodeport="${{ steps.get_nodeport.outputs.nodeport }}"
-          echo "Access your application at http://$minikube_ip:$nodeport
+      #- name: Get service details with exposed port
+      #  run: |
+      #    kubectl get svc -n default
+      #    nodeport="${{ steps.get_nodeport.outputs.nodeport }}"
+      #    echo "Access your application at http://$minikube_ip:$nodeport

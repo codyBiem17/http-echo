@@ -45,7 +45,7 @@ jobs:
           helm version  # Verify Helm installation
 
       - name: Deploy Helm chart to K8S to create a release
-        run: helm upgrade --install http-echo-goapp-release ./http-echo-helm
+        run: helm upgrade --install http-echo-goapp-release ./http-echo-helm --values ./http-echo-helm/values.yaml
 
       - name: Navigate to Helm chart directory and Check content of the deployment and services file
         run: |
@@ -65,7 +65,9 @@ jobs:
         run: kubectl describe deployment goapp-deploy
 
       - name: manually pull an image from dockerhub
-        run: docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
+        run: |
+          docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
+          docker ps -a
 
       - name: Get service url for accessing the application
       #  id: minikube_ip

@@ -24,8 +24,8 @@ jobs:
 
       - name: Tag and Push Docker Image from local to Public Registry
         run: |
-          docker tag http-echo:local ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
-          docker push ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
+          docker tag http-echo:local ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v2
+          docker push ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v2
     
           #run-name: "Pipeline to Build and Deploy app to K8S created by ${{ github.actor }}"
 

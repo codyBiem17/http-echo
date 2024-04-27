@@ -12,6 +12,6 @@ image:
   tag: "v1"
 
 service:
-  type: NodePort
+  type: LoadBalancer
   port: 80
   containerPort: 5678

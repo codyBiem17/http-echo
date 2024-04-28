@@ -45,33 +45,36 @@ jobs:
           helm version  # Verify Helm installation
 
       - name: Deploy Helm chart to K8S to create a release
-        run: helm upgrade --install http-echo-goapp-release ./http-echo-helm --values ./http-echo-helm/values.yaml
-
-      - name: Navigate to Helm chart directory and Check content of the deployment and services file
         run: |
-          cd http-echo-helm
-          ls
-          cd templates
+          helm upgrade --install http-echo-goapp-release ./http-echo-helm --values ./http-echo-helm/values.yaml
+          sleep 60s
+          kubectl get pods
           cat deployment.yaml
           cat service.yaml
 
-      - name: Confirm deployment in K8S cluster succeeds
-        run: |
-          kubectl get pods
-          kubectl get deployments
-          kubectl get services
+      #- name: Navigate to Helm chart directory and Check content of the deployment and services file
+       #  run: |
+         #  cd http-echo-helm
+         #  ls
+         #  cd templates
 
-      - name: Check deployment info
-        run: kubectl describe deployment goapp-deploy
+       #- name: Confirm deployment in K8S cluster succeeds
+       #  run: |
+         #  kubectl get pods
+         #  kubectl get deployments
+         #  kubectl get services
 
-      - name: manually pull an image from dockerhub
-        run: |
-          docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
-          docker ps -a
+       #- name: Check deployment info
+         #run: kubectl describe deployment goapp-deploy
 
-      - name: Get service url for accessing the application
+       #- name: manually pull an image from dockerhub
+         #run: |
+         #  docker run -d -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/helm-goapp-isw:v1
+         #  docker ps -a
+
+     #  - name: Get service url for accessing the application
       #  id: minikube_ip
-        run: minikube service list #echo "::set-output name=minikube_ip::$(minikube ip)"
+       #  run: minikube service list #echo "::set-output name=minikube_ip::$(minikube ip)"
 
       #- name: Get NodePort
       #  id: get_nodeport

@@ -49,6 +49,7 @@ jobs:
           helm upgrade --install http-echo-goapp-release ./http-echo-helm --values ./http-echo-helm/values.yaml
           sleep 60s
           kubectl get pods
+          cd http-echo-helm/cd templates
           cat deployment.yaml
           cat service.yaml
 

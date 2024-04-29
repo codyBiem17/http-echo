@@ -47,16 +47,13 @@ jobs:
       - name: Deploy Helm chart to K8S to create a release
         run: |
           helm upgrade --install http-echo-goapp-release ./http-echo-helm --values ./http-echo-helm/values.yaml
-          sleep 60s
+          # sleep 60s
           kubectl get pods
-          cd http-echo-helm/cd templates
-          cat deployment.yaml
-          cat service.yaml
+        
 
       #- name: Navigate to Helm chart directory and Check content of the deployment and services file
        #  run: |
          #  cd http-echo-helm
-         #  ls
          #  cd templates
 
        #- name: Confirm deployment in K8S cluster succeeds

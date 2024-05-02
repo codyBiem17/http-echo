@@ -36,7 +36,8 @@ jobs:
       - name: Tag and Push Docker Image from local to Public Registry
         uses: docker/build-push-action@v5
         with:
-          file: .
+          context: .
+          #afile: .
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ steps.image_tag.outputs.docker_image_tag }}
         #   docker push ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ env.IMAGE_TAG }}

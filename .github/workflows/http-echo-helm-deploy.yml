@@ -37,13 +37,13 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          #afile: .
+          #file: .
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ steps.image_tag.outputs.docker_image_tag }}
-        #   docker push ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ env.IMAGE_TAG }}
 
       - name: Set up kubeconfig
         run: |
+          mkdir $HOME/.kube/
           echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
 

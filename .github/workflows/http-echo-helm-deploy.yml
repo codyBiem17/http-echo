@@ -9,7 +9,6 @@ env:
   DOCKER_IMAGE_REPO: "helm-goapp-isw"
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  IMAGE_TAG: "${GITHUB_SHA::7}"
 
 jobs:
   build:
@@ -23,17 +22,23 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Docker login
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin docker.io
+        run: echo "${{ env.DOCKER_PASSWORD }}" | docker login -u "${{ env.DOCKER_USERNAME }}" --password-stdin docker.io
 
       - name: Build a docker image using a Makefile
         run: make docker
+
+      - name: Set tag to use github sha commit
+        id: image_tag
+        run: |
+          IMAGE_TAG="${GITHUB_SHA::7}"
+          echo "::set-output name=docker_image_tag::$IMAGE_TAG"
 
       - name: Tag and Push Docker Image from local to Public Registry
         uses: docker/build-push-action@v5
         with:
           file: .
           push: true
-          tags: ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ env.IMAGE_TAG }}
+          tags: ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ steps.image_tag.outputs.docker_image_tag }}
         #   docker push ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ env.IMAGE_TAG }}
 
       - name: Set up kubeconfig
@@ -57,8 +62,10 @@ jobs:
           helm version  # Verify Helm installation
 
       - name: Deploy Helm chart to K8S to create a release
+        env:
+          KUBECONFIG: $HOME/.kube/config
         run: |
-          helm upgrade --install http-echo-goapp-release ./http-echo-helm --values ./http-echo-helm/values.yaml --wait
+          helm upgrade --install http-echo-goapp-release ./http-echo-helm --wait
           #sleep 60s
 
       # - name: Navigate to Helm chart directory and Check content of the deployment and services file

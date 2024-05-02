@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}-deploy
   labels:
-    app: goapp-isw
+    app: http-echo-isw
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: goapp-isw
+      app: http-echo-isw
   template:
     metadata:
       labels:
-        app: goapp-isw
+        app: http-echo-isw
     spec:
      containers:
        - name: {{ .Values.image.name }}

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ .Chart.Name }}-service
   labels:
-    app: goapp-isw
+    app: http-echo-isw
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -11,4 +11,4 @@ spec:
       targetPort: {{ .Values.service.containerPort }}
       protocol: TCP
   selector:
-    app: goapp-isw
+    app: http-echo-isw

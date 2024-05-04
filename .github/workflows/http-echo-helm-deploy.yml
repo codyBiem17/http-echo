@@ -41,21 +41,21 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ steps.image_tag.outputs.docker_image_tag }}
 
-      # - name: Set up kubeconfig
-      #   run: |
-      #     mkdir $HOME/.kube
-      #     echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
-      #     cat $HOME/.kube/config
-
-      # - name: Use Minikube context
-      #   run: kubectl config use-context minikube
-        
-      - name: Install and start Minikube cluster
+      - name: Set up kubeconfig
         run: |
-              curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-              sudo install minikube-linux-amd64 /usr/local/bin/minikube
-              minikube start --driver=docker
-              minikube status
+          mkdir $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
+          cat $HOME/.kube/config
+
+      - name: Use Minikube context
+        run: kubectl config use-context minikube
+        
+      # - name: Install and start Minikube cluster
+      #   run: |
+      #         curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+      #         sudo install minikube-linux-amd64 /usr/local/bin/minikube
+      #         minikube start --driver=docker
+      #         minikube status
 
       # - name: Set up kubectl
       #   uses: azure/setup-kubectl@v1
@@ -71,10 +71,10 @@ jobs:
           helm version  # Verify Helm installation
 
       - name: Deploy Helm chart to K8S to create a release
-        # env:
-        #   KUBE_CONFIG: $HOME/.kube/config
+        env:
+          KUBE_CONFIG: $HOME/.kube/config
         run: |
-          helm upgrade --install http-echo-goapp-release ./http-echo-helm --wait
+          helm upgrade --install --wait --timeout 60s http-echo-goapp-release ./http-echo-helm
           #sleep 60s
 
       # - name: Navigate to Helm chart directory and Check content of the deployment and services file

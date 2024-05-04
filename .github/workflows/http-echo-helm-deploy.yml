@@ -71,11 +71,11 @@ jobs:
           helm version  # Verify Helm installation
 
       - name: Deploy Helm chart to K8S to create a release
-        env:
-          KUBE_CONFIG: $HOME/.kube/config
+        # env:
+        #   KUBE_CONFIG: $HOME/.kube/config
         run: |
-          helm upgrade --install --wait --timeout 60s http-echo-goapp-release ./http-echo-helm
-          #sleep 60s
+          helm upgrade --install http-echo-goapp-release ./http-echo-helm
+          sleep 60s
 
       # - name: Navigate to Helm chart directory and Check content of the deployment and services file
       #   run: |

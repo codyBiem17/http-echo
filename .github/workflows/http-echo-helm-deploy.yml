@@ -67,8 +67,9 @@ jobs:
 
       - name: Deploy Helm chart to K8S to create a release
         env:
-          KUBECONFIG: $HOME/.kube/config
+          KUBE_CONFIG: $HOME/.kube/config
         run: |
+          kubectl config view --raw >> "${{ env.KUBE_CONFIG }}"
           helm upgrade --install http-echo-goapp-release ./http-echo-helm --wait
           #sleep 60s
 

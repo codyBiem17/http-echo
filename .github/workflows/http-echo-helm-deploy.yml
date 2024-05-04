@@ -41,21 +41,21 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_USERNAME }}/${{ env.DOCKER_IMAGE_REPO}}:${{ steps.image_tag.outputs.docker_image_tag }}
 
-      - name: Set up kubeconfig
-        run: |
-          mkdir $HOME/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
-          cat $HOME/.kube/config
-
-      - name: Use Minikube context
-        run: kubectl config use-context minikube
-        
-      # - name: Install and start Minikube cluster
+      # - name: Set up kubeconfig
       #   run: |
-      #         curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-      #         sudo install minikube-linux-amd64 /usr/local/bin/minikube
-      #         minikube start --driver=docker
-      #         minikube status
+      #     mkdir $HOME/.kube
+      #     echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
+      #     cat $HOME/.kube/config
+
+      # - name: Use Minikube context
+      #   run: kubectl config use-context minikube
+        
+      - name: Install and start Minikube cluster
+        run: |
+              curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+              sudo install minikube-linux-amd64 /usr/local/bin/minikube
+              minikube start --driver=docker
+              minikube status
 
       # - name: Set up kubectl
       #   uses: azure/setup-kubectl@v1

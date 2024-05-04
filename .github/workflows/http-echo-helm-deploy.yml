@@ -47,7 +47,9 @@ jobs:
           echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
           cat $HOME/.kube/config
 
-
+      - name: Use Minikube context
+        run: kubectl config use-context minikube
+        
       # - name: Install and start Minikube cluster
       #   run: |
       #         curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64

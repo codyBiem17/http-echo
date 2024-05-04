@@ -43,8 +43,9 @@ jobs:
 
       - name: Set up kubeconfig
         run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          mkdir $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > $HOME/.kube/config
+          cat $HOME/.kube/config
 
 
       # - name: Install and start Minikube cluster

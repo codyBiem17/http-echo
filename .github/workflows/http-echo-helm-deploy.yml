@@ -77,6 +77,9 @@ jobs:
           helm upgrade --install http-echo-goapp-release ./http-echo-helm
           sleep 60s
 
+      - name: start minikube tunnel
+        run:  minikube tunnel
+
       # - name: Navigate to Helm chart directory and Check content of the deployment and services file
       #   run: |
       #     cd http-echo-helm

@@ -5,6 +5,7 @@
 replicaCount: 1
 
 image:
+  name: http-echo-img
   repository: maryambee/helm-goapp-isw
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.

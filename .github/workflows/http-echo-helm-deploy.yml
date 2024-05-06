@@ -56,7 +56,9 @@ jobs:
               sudo install minikube-linux-amd64 /usr/local/bin/minikube
               minikube start --driver=docker
               minikube status
-
+              minikube addons enable ingress
+              minikube tunnel &
+              
       # - name: Set up kubectl
       #   uses: azure/setup-kubectl@v1
       #   with:

@@ -74,11 +74,11 @@ jobs:
         # env:
         #   KUBE_CONFIG: $HOME/.kube/config
         run: |
-          helm upgrade --install http-echo-goapp-release ./http-echo-helm
+          helm upgrade --install http-echo-goapp-release ./httpecho-chart
           sleep 60s
 
-      - name: start minikube tunnel
-        run:  minikube tunnel
+      # - name: start minikube tunnel
+      #   run:  minikube tunnel
 
       # - name: Navigate to Helm chart directory and Check content of the deployment and services file
       #   run: |
@@ -92,15 +92,16 @@ jobs:
           kubectl get pods
           kubectl get deployments
           kubectl get services
+          minikube service list
 
-      - name: Get loadbalance ip for accessing the application
-        id: get-lb-ip
-        run: |
-          EXTERNAL_IP=$(kubectl get svc http-echo-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
-          echo "::set-output name=lb-ip::$EXTERNAL_IP"
+      # - name: Get loadbalance ip for accessing the application
+      #   id: get-lb-ip
+      #   run: |
+      #     EXTERNAL_IP=$(kubectl get svc http-echo-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+      #     echo "::set-output name=lb-ip::$EXTERNAL_IP"
 
 
-      - name: Get service details with exposed port
-        run: |
-          loadbalancer_ip="${{ steps.get-lb-ip.outputs.lb-ip }}"
-          echo "Access http-echo application at http://$loadbalancer_ip:5678
+      # - name: Get service details with exposed port
+      #   run: |
+      #     loadbalancer_ip="${{ steps.get-lb-ip.outputs.lb-ip }}"
+      #     echo "Access http-echo application at http://$loadbalancer_ip:5678

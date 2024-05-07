@@ -57,7 +57,7 @@ jobs:
               minikube start --driver=docker
               minikube status
               # minikube addons enable ingress
-              minikube tunnel &
+              # minikube tunnel &
 
       # - name: Set up kubectl
       #   uses: azure/setup-kubectl@v1

@@ -16,36 +16,36 @@ Then visit http://localhost:8080/ in your browser.
 
 This project provides a step by step guide to set up/create a Github Actions Pipeline for deployment for this project to kubernetes cluster, the following DevOps tools have been used:
 
-* VCS: Git/Github
+* VCS/SCM: Git/Github
 * OS: Linux - Ubuntu
 * Container technology/Registry: Docker/Dockerhub, Kubernetes/Minikube, Helm
 * CICD tool: Github Actions
 
 ## Brief information about each choice of tool above:
 
-### Git
-This is version control system that is used to track changes in project repo. It is also known as a source control management. It uses cli commands to help developers interact or manage code in their repo. IMore information about installation can be found [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+### Version Control System, VCS
+**Git** is version control system that is used to track changes in project repo. It is also known as a source control management. It uses cli commands to help developers interact or manage code in their repo. IMore information about installation can be found [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-### Github
-This is an online /cloud-based platform that helps developers to create, store, manage, track and control changes to their code. It is a remote repository that helps developers with collaboration.
+### Source Control Management, SCM
+**Github** is an online /cloud-based platform that helps developers to create, store, manage, track and control changes to their code. It is a remote repository that helps developers with collaboration.
 [Sign up](https://github.com/) to het started
 
-### Linux/Ubuntu
-An open-source operating system. I have installed this on a Virtual Box, this is an alternative approach to using cloud-based VM or WSL on Windows host system. For more installation info, click [vbox](https://www.virtualbox.org/)
+### Operating System
+**Linux-Ubuntu** is an open-source operating system. I have installed this on a Virtual Box, this is an alternative approach to using cloud-based VM or WSL on Windows host system. For more installation info, click [vbox](https://www.virtualbox.org/)
 
-### Docker/Dockerhub
+### Container Technologies
 **Docker** is a light-weight software for building containerized applications. More info at [Docker](https://docs.docker.com/get-docker/)
+
 **Dockerhub** is a container registry publicly available for developers to find, use and share containers. Dockerhub was used because no cost is incurred. For advanced test, you can use AWS ECR, Azure Container Registry, etc. Sign up at [dockerhub](https://hub.docker.com/)
 
-### Kubernetes/Minikube
 **Kubernetes** is a container orchestration tool for managing.scaling containerized applications.
 
 **Minikube** is a local-based kubernetes cluster used for test development. This is easy to use and learn, however, an alternative is Kubernetes in Docker Desktop. More information about [minikube](https://minikube.sigs.k8s.io/docs/start/)
 
 **Helm** is a package manager software used for managaing kubernetes deployment. I have used the [binary realease](https://helm.sh/docs/intro/install/#from-the-binary-releases) option
 
-### Github Actions
-This is used to automate workflow in Github repository. Easy to use as no extra/external software is needed to get it working. This is directly integrated in Github repository. More info at [Github Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
+### CICD Pipeline
+**Github Actions** is used to automate workflow in Github repository. Easy to use as no extra/external software is needed to get it working. This is directly integrated in Github repository. More info at [Github Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions)
 
 ## Steps to Set Up Project
 
